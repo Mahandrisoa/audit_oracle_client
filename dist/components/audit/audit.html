@@ -1,0 +1,32 @@
+<div class="app-content box-shadow-z4" role="main">
+    <div class="row p-a white lt box-shadow">
+        <div class="col-md-6">
+            <h2 class="m-b-0 _300 container">Audit du {{ $ctrl.dateAudit }}</h2>
+        </div>
+        <div class="col-md-6 pull-right">
+            <div class="form-group row">
+                <label class="col-sm-1 form-control-label _300" style="font-size:2em;">Date:</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" ng-model="datePicker" ng-change="$ctrl.handlePickerChange(e);">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 form-control-label _300" style="font-size:2em;">Type:</label>
+                <div class="col-sm-4">
+                    <select id="" class="form-control" ng-init="typeModel = 'Tout'" ng-model="typeModel" ng-change="$ctrl.handleTypeChange(this)">
+                        <option value="Tout">Agences et Usines</option>
+                        <option value="Agence">Agences</option>
+                        <option value="Usine">Usines</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <spinner ng-show="$ctrl.showSpinner"></spinner>
+    <div class="padding row">
+        <div ng-if="$ctrl.audits.length === 0" class="container">
+            <p class="h5 m-y-lg text-u-c font-bold">Aucun audit n'a été fait pour cette date.</p>
+        </div>
+        <audit-detail ng-repeat="audit in $ctrl.audits" audit="audit" date="$ctrl.dateAudit"></audit-detail>
+    </div>
+</div>

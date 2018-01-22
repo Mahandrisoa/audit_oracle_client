@@ -1,0 +1,116 @@
+<div class="app-content box-shadow-z4" role="main">
+    <div class="row p-a white lt box-shadow">
+        <div class="col-sm-6">
+            <h2 class="m-b-0 _300 container">
+                <a ng-click="$ctrl.backToAudit(this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                        <path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z" />
+                    </svg>
+                </a>
+                Details
+            </h2>
+        </div>
+        <div class="col-sm-6 text-sm-right pull-right">
+        </div>
+    </div>
+    <div class="padding row">
+        <div class="col-sm-4 col-md-3">
+            <div class="box bordered" style="height: 150;">
+                <div class="box-header red-800">
+                    <h3 class="m-a-0 m-b-sm text-md text-center">{{ $ctrl.selectedObj.DIVISION_TYPE }} {{ $ctrl.selectedObj.DIVISION_NAME }}</h3>
+                </div>
+                <div class="box-body">
+                    <div class="list inset">
+                        <div class="list-item">
+                            <div class="list-left">
+                                <h5>
+                                    Exploitation
+                                </h5>
+                            </div>
+                            <div class="list-body pull-right">
+                                <h5>
+                                    {{ $ctrl.selectedObj.DIVISION }}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list inset">
+                        <div class="list-item">
+                            <div class="list-left">
+                                <h5>
+                                    Date du
+                                </h5>
+                            </div>
+                            <div class="list-body pull-right">
+                                <h5>
+                                    {{ $ctrl.selectedDate }}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list inset">
+                        <div class="list-item">
+                            <div class="list-left">
+                                <h5>
+                                    CACHE HIT RATIO
+                                </h5>
+                            </div>
+                            <div class="list-body pull-right">
+                                <h5>
+                                    {{ $ctrl.selectedObj.CACHE_HIT_RATIO}}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-9">
+            <div class="box" style="height: 500px;">
+                <div class="box-header red-800">
+                    <h2>Details de l'audit</h2>
+                </div>
+                <div class="box-body">
+                    <div class="b-b nav-active-red">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="" data-toggle="tab" data-target="#tab4" aria-expanded="true">TABLESPACE</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="" data-toggle="tab" data-target="#tab5" aria-expanded="false">DISQUES</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="" data-toggle="tab" data-target="#tab6">TABLES</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="" data-toggle="tab" data-target="#tab7">INDEX</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content p-a m-b-md">
+                        <div class="tab-pane animated fadeIn text-muted active" id="tab4" aria-expanded="true">
+                            <div style="height:350px;" class="table-responsive">
+                                <tablespace audit="$ctrl.selectedObj" date="$ctrl.selectedDate"></tablespace>
+                            </div>
+                        </div>
+                        <div class="tab-pane animated fadeIn text-muted" id="tab5" aria-expanded="false">
+                            <div style="height:350px;" class="table-responsive">
+                                <disk audit="$ctrl.selectedObj" date="$ctrl.selectedDate"></disk>
+                            </div>
+                        </div>
+                        <div class="tab-pane animated fadeIn text-muted" id="tab6">
+                            <div style="height:350px;" class="table-responsive">
+                                <table-component audit="$ctrl.selectedObj" date="$ctrl.selectedDate"></table-component>
+                            </div>
+                        </div>
+                        <div class="tab-pane animated fadeIn text-muted" id="tab7">
+                            <div style="height:350px;" class="table-responsive">
+                                <table-index audit="$ctrl.selectedObj" date="$ctrl.selectedDate"></table-index>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

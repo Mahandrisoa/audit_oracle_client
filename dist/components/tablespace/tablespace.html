@@ -1,0 +1,21 @@
+<table class="table table table-hover b-t">
+    <thead>
+        <tr>
+            <th class="text-center col-xs-3">TABLESPACE</th>
+            <th class="text-center col-xs-9">ETAT</th>
+        </tr>
+    </thead>
+    <tbody style="height: 160px;overflow-y:scroll;">
+        <tr ng-repeat="tbl in $ctrl.tablespaces">
+            <td class="col-md-3 text-center" data-toggle="tooltip" data-placement="top" title="{{tbl.percentUsed}}%">{{tbl.NOM_OBJET}}</td>
+            <td class="col-md-9 text-center">
+                <div class="progress progress-xs" data-toggle="tooltip" data-placement="top" title="{{tbl.percentUsed}}%">
+                    <div class="progress-bar" ng-class="{ 'success': tbl.percentUsed < 50 , 'warn': tbl.percentUsed >= 50 && tbl.percentUsed < 75 , 'danger': tbl.percentUsed >= 75 }"
+                        style="width: {{tbl.percentUsed}}%"></div>
+                </div>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+<p class="text-right">{{ $ctrl.tablespaces.length }} lignes sélectionnées.</p>
