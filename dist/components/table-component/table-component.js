@@ -47,6 +47,6 @@ angular.module('app')
     })
     .service('tableService', function ($http) {
         this.getTables = function (division, date, objType) {
-            return $http.get('http://'+ SERVER.ip_adress +':'+ SERVER.port +'/api/objet_details?division=' + division + '&date=' + date + '&objet=' + objType + '');
+            return $http.get('http://' + SERVER.ip_adress + ':' + SERVER.port + '/api/objet_details?division=' + division + '&date=' + date + '&objet=' + objType + '');
         };
     });

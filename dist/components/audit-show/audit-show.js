@@ -12,7 +12,7 @@ function auditShowCtrl($scope, $http, $attrs) {
 
 angular.module('app')
     .component('auditShow', {
-        templateUrl: '/components/audit-show/audit-show.html',
+        templateUrl: './dist/components/audit-show/audit-show.html',
         controller: auditShowCtrl,
         bindings: {
             audit: '<',

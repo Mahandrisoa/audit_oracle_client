@@ -14,7 +14,8 @@
                 <label class="col-sm-1 form-control-label _300" style="font-size:2em;">Type:</label>
                 <div class="col-sm-4">
                     <select id="" class="form-control" ng-init="typeModel = 'Tout'" ng-model="typeModel" ng-change="$ctrl.handleTypeChange(this)">
-                        <option value="Tout">Agences et Usines</option>
+                        <option value="Tout">Agences, Usines et Siège</option>
+                        <option value="Siege">Siège</option>
                         <option value="Agence">Agences</option>
                         <option value="Usine">Usines</option>
                     </select>
@@ -23,7 +24,7 @@
         </div>
     </div>
     <spinner ng-show="$ctrl.showSpinner"></spinner>
-    <div class="padding row">
+    <div ng-show="!$ctrl.showSpinner" class="padding row">
         <div ng-if="$ctrl.audits.length === 0" class="container">
             <p class="h5 m-y-lg text-u-c font-bold">Aucun audit n'a été fait pour cette date.</p>
         </div>

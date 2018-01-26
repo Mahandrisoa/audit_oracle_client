@@ -2,7 +2,7 @@
 <html>
 
 <head lang="en">
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title ng-bind="pageTitle"></title>
@@ -14,12 +14,43 @@
     <link rel="stylesheet" href="./bower_components/styles/app.css" type="text/css" />
     <link rel="stylesheet" href="./bower_components/styles/font.css" type="text/css" />
     <style>
+        body {
+            font-family: 'Consolas''Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+            /* If you want dots under the hoverable text */
+        }
+
+        /* Tooltip text */
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
     </style>
 </head>
 
 <body ng-app="app">
     <div class="app">
-        <app></app> 
+        <app></app>
     </div>
     <!-- bower requires -->
     <script src="./bower_components//socket.io-client/socket.io.js"></script>
@@ -39,6 +70,7 @@
     <!-- call to all components -->
     <script src="./dist/config.js"></script>
     <script src="./dist/components/app/app.js"></script>
+    <script src="./dist/components/app/io-services.js"></script>
     <script src="./dist/components/audit/audit.js"></script>
     <script src="./dist/components/audit-detail/audit-detail.js"></script>
     <script src="./dist/components/cache/cache.js"></script>

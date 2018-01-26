@@ -1,18 +1,24 @@
 <table class="table table table-hover b-t">
     <thead>
         <tr>
-            <th class="text-center col-xs-3">TABLESPACE</th>
-            <th class="text-center col-xs-9">ETAT</th>
+            <th class="text-center col-md-2">TABLESPACE</th>
+            <th class="text-center col-md-8">ETAT</th>
+            <th class="text-center col-md-2">TAILLE (Ko)</th>
         </tr>
     </thead>
     <tbody style="height: 160px;overflow-y:scroll;">
-        <tr ng-repeat="tbl in $ctrl.tablespaces">
-            <td class="col-md-3 text-center" data-toggle="tooltip" data-placement="top" title="{{tbl.percentUsed}}%">{{tbl.NOM_OBJET}}</td>
-            <td class="col-md-9 text-center">
-                <div class="progress progress-xs" data-toggle="tooltip" data-placement="top" title="{{tbl.percentUsed}}%">
+        <tr ng-repeat="tbl in $ctrl.tablespaces" data-toggle="tooltip" data-placement="top" title="{{tbl.percentUsed}}%">
+            <td class="col-md-2 text-center">{{tbl.NOM_OBJET}}</td>
+            <td class="col-md-8 text-center">
+                <div class="progress progress-xs" >
                     <div class="progress-bar" ng-class="{ 'success': tbl.percentUsed < 50 , 'warn': tbl.percentUsed >= 50 && tbl.percentUsed < 75 , 'danger': tbl.percentUsed >= 75 }"
                         style="width: {{tbl.percentUsed}}%"></div>
                 </div>
+            </td>
+            <td class="col-md-2 text-center">
+                <p>
+                    <b>{{(tbl.TAILLE_UTILISE/1024)}}  /  {{(tbl.TAILLE_OBJET/1024)}}</b>
+                </p>
             </td>
         </tr>
 

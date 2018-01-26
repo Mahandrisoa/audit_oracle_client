@@ -1,4 +1,4 @@
 var SERVER = {
-    "ip_adress" : "localhost",
+    "ip_adress" : "127.0.0.1",
     "port"      : "3000"
 };
