@@ -7,7 +7,7 @@
             <div class="form-group row">
                 <label class="col-sm-1 form-control-label _300" style="font-size:2em;">Date:</label>
                 <div class="col-sm-4">
-                    <input type="date" class="form-control" ng-model="datePicker" ng-change="$ctrl.handlePickerChange(e);">
+                    <input type="date" id="datePicker" class="form-control" ng-model="datePicker" ng-change="$ctrl.handlePickerChange(e);">
                 </div>
             </div>
             <div class="form-group row">
@@ -24,6 +24,7 @@
         </div>
     </div>
     <spinner ng-show="$ctrl.showSpinner"></spinner>
+    <!-- <site-information ng-show="!$ctrl.showSpinner" count="$ctrl.auditCount"></site-information> -->
     <div ng-show="!$ctrl.showSpinner" class="padding row">
         <div ng-if="$ctrl.audits.length === 0" class="container">
             <p class="h5 m-y-lg text-u-c font-bold">Aucun audit n'a été fait pour cette date.</p>

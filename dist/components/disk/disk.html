@@ -2,21 +2,17 @@
     <thead>
         <tr>
             <th>PARTITION</th>
-            <th>UTILISE (Octets)</th>
-            <th>UTILISE (Mo)</th>
-            <th>TOTAL (Octets)</th>
-            <th>TOTAL (Mo)</th>
             <th>Libre %</th>
+            <th>UTILISE (Go)</th>
+            <th>TOTAL (Go)</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="disk in $ctrl.disks">
+        <tr ng-repeat="disk in $ctrl.disks" >
             <td>{{disk.NOM_DISQUE}}</td>
-            <td>{{ disk.ESPACE_TOTAL - disk.ESPACE_LIBRE}}</td>
-            <td>{{ (disk.ESPACE_TOTAL - disk.ESPACE_LIBRE) /1048576 }}</td>
-            <td>{{ disk.ESPACE_TOTAL}}</td>
-            <td>{{ disk.ESPACE_TOTAL/1048576 }}</td>
             <td>{{disk.percentUsed}}</td>
-        </tr>
+            <td>{{disk.goUsed}}</td>
+            <td>{{disk.goTotal}}</td>
+        </tr>    
     </tbody>
 </table>

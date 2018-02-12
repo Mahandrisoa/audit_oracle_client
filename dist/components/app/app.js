@@ -10,6 +10,18 @@ angular.module('app', [
         controller: appCtrl,
     });
 
+angular.module('app').factory('httpPreConfig', ['$http', '$rootScope', function ($http, $rootScope) {
+    $http.defaults.transformRequest.push(function (data) {
+        $rootScope.$broadcast('httpCallStarted');
+        return data;
+    });
+    $http.defaults.transformResponse.push(function (data) {
+        $rootScope.$broadcast('httpCallStopped');
+        return data;
+    })
+    return $http;
+}]);
+
 function appCtrl($scope, $http, $attrs) {
     var ctrl = this;
     this.$onInit = function () {

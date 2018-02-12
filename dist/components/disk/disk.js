@@ -1,34 +1,43 @@
 function diskCtrl($scope, $element, $attrs, diskService) {
     var ctrl = this;
-    this.$onInit = function () {     
-        
-        var date  = ctrl.date;
+    this.$onInit = function () {
+
+        var date = ctrl.date;
         var tableau = date.split('/');
-        var cdate = tableau[0] +"/"+ tableau[1]+"/"+ new Date().getFullYear();        
+        var cdate = tableau[0] + "/" + tableau[1] + "/" + new Date().getFullYear();
         diskService.getDisks(ctrl.audit.DIVISION, cdate)
             .then(function (response) {
                 ctrl.disks = response.data;
                 /** Adding precent to object attribute */
                 ctrl.disks.forEach(d => {
                     var r3 = parseFloat((d.ESPACE_LIBRE * 100) / d.ESPACE_TOTAL).toFixed(3);
-                    if(isNaN(r3)) {
+                    var goUsed = precisionRound(parseFloat((d.ESPACE_TOTAL - d.ESPACE_LIBRE) / 1073741824).toFixed(3), 1);
+                    var goTotal = precisionRound(parseFloat(d.ESPACE_TOTAL / 1073741824).toFixed(3), 1);
+                    if (isNaN(r3)) {
                         d['percentUsed'] = "0";
-                    }else {
+                    } else {
                         d['percentUsed'] = r3;
                     }
+                    d['goUsed'] = goUsed;
+                    d['goTotal'] = goTotal;
                 });
                 /** Filtering with non zero attribute **/
-                ctrl.disks = ctrl.disks.filter(function (el){
-                    return el.ESPACE_TOTAL !== 0; 
+                ctrl.disks = ctrl.disks.filter(function (el) {
+                    return el.ESPACE_TOTAL !== 0;
                 });
             }, function (reason) {
                 console.warn('ERROR :' + reason)
             });
-    }     
+    }
 
-    this.convertDate = function (inputFormat) {            
-        function pad(s) { return (s < 10) ? '0' + s : s; }   
-        var d = new Date(inputFormat);                
+    function precisionRound(number, precision) {
+        var factor = Math.pow(10, precision);
+        return Math.round(number * factor) / factor;
+    }
+
+    this.convertDate = function (inputFormat) {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
+        var d = new Date(inputFormat);
         return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
     }
 }

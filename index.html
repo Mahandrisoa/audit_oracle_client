@@ -15,8 +15,9 @@
     <link rel="stylesheet" href="./bower_components/styles/font.css" type="text/css" />
     <style>
         body {
-            font-family: 'Consolas''Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         .tooltip {
             position: relative;
             display: inline-block;
@@ -45,6 +46,21 @@
         .tooltip:hover .tooltiptext {
             visibility: visible;
         }
+
+        .table>thead>tr>th,
+        .table>tfoot>tr>th
+        {
+            border-bottom: 1px solid rgba(170, 137, 137, 0.411);
+            background-color: rgba(170, 137, 137, 0.411);
+            text-align: left;
+        }      
+
+        .table>tbody>tr>td {
+            border-bottom: 1px solid rgba(170, 137, 137, 0.411);
+            vertical-align: middle;
+            text-align: left;
+            color: black;
+        }
     </style>
 </head>
 
@@ -72,6 +88,7 @@
     <script src="./dist/components/app/app.js"></script>
     <script src="./dist/components/app/io-services.js"></script>
     <script src="./dist/components/audit/audit.js"></script>
+    <script src="./dist/components/site-information/site-information.js"></script>
     <script src="./dist/components/audit-detail/audit-detail.js"></script>
     <script src="./dist/components/cache/cache.js"></script>
     <script src="./dist/components/tab/tab.js"></script>
