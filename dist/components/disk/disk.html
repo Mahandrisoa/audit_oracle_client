@@ -1,18 +1,29 @@
 <table class="table table-hover b-t">
     <thead>
         <tr>
-            <th>PARTITION</th>
+            <th style="width:10%;">LABEL</th>
+            <th style="width:40%;">ETAT</th>
             <th>Libre %</th>
             <th>UTILISE (Go)</th>
             <th>TOTAL (Go)</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="disk in $ctrl.disks" >
-            <td>{{disk.NOM_DISQUE}}</td>
-            <td>{{disk.percentUsed}}</td>
-            <td>{{disk.goUsed}}</td>
+        <tr ng-repeat="disk in $ctrl.disks">
+            <td  style="width:10%;">
+                <b>
+                    {{disk[0]}}
+                </b>
+            </td>
+            <td style="width:40%;">
+                <div class="progress progress-xs">
+                    <div class="progress-bar" ng-class="{ 'success': disk.percentUsed < 50 , 'warn': disk.percentUsed >= 50 && disk.percentUsed < 75 , 'danger': disk.percentUsed >= 75 }"
+                        style="width: {{disk.percentUsed}}%"></div>
+                </div>
+            </td>
+            <td>{{disk.percentUsed}}</td>            
+            <td align="right">{{disk.goUsed}}</td>
             <td>{{disk.goTotal}}</td>
-        </tr>    
+        </tr>
     </tbody>
 </table>

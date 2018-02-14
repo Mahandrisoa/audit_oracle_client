@@ -9,7 +9,7 @@
     </thead>
     <tbody style="height: 160px;overflow-y:scroll;">
         <tr ng-repeat="tbl in $ctrl.tablespaces" data-toggle="tooltip" data-placement="top" title="{{tbl.percentUsed}}%">
-            <td class="col-md-2 text-center">{{tbl.NOM_OBJET}}</td>
+            <td class="col-md-2 text-center">{{tbl[1]}}</td>
             <td class="col-md-6 text-center">
                 <div class="progress progress-xs">
                     <div class="progress-bar" ng-class="{ 'success': tbl.percentUsed < 50 , 'warn': tbl.percentUsed >= 50 && tbl.percentUsed < 75 , 'danger': tbl.percentUsed >= 75 }"
@@ -18,7 +18,7 @@
             </td>
             <td class="col-md-2 text-center">
                 <p>
-                    <b>{{(tbl.TAILLE_UTILISE/1024)}} / {{(tbl.TAILLE_OBJET/1024)}}</b>
+                    <b>{{(tbl[4]/1024)}} / {{(tbl[2]/1024)}}</b>
                 </p>
             </td>
             <td class="col-md-2 text-center">

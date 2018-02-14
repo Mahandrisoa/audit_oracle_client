@@ -3,8 +3,9 @@ function tableCtrl($scope, $element, $attrs, tableService) {
 
     this.$onInit = function () {
         tableService
-            .getTables(ctrl.audit.DIVISION, ctrl.date, 'table')
+            .getTables(ctrl.audit[1], ctrl.date, 'table')
             .then(function (response) {
+                // TYPE_OBJET,NOM_OBJET,TAILLE_OBJET,NB_EXTENT,TAILLE_UTILISE,DATE_AUDIT_JOURNALIER,DIVISION
                 ctrl.tables = response.data;
                 ctrl._backup = response.data;
                 ctrl._temp = response.data;
@@ -17,7 +18,7 @@ function tableCtrl($scope, $element, $attrs, tableService) {
     function total(array) {
         var sum = 0;
         ctrl.tables.forEach(element => {
-            sum += element.TAILLE_OBJET;
+            sum += element[2];
         });
         return sum;
     }
@@ -26,7 +27,7 @@ function tableCtrl($scope, $element, $attrs, tableService) {
         switch (e.tableModel) {
             case 'biggest':
                 ctrl.tables = ctrl._temp.filter(function (element) {
-                    return element.TAILLE_OBJET > 102400;
+                    return element[2] > 102400;
                 });
                 break;
             case 'mostDeffed': // les plus defragmentés                

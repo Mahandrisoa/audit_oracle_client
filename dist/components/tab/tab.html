@@ -1,41 +1,41 @@
 <div class="text-center m-b">
     <ul class="nav nav-sm nav-pills nav-active-red clearfix">
         <li class="nav-item">
-            <a class="nav-link active" href data-toggle="tab" data-target="#tab_tbs{{$ctrl.audit.DIVISION}}">
+            <a class="nav-link active" href data-toggle="tab" data-target="#tab_tbs{{$ctrl.audit[1]}}">
                 tablespaces
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href data-toggle="tab" data-target="#tab_dsk{{$ctrl.audit.DIVISION}}">disques
+            <a class="nav-link" href data-toggle="tab" data-target="#tab_dsk{{$ctrl.audit[1]}}">disques
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href data-toggle="tab" data-target="#tab_tbl{{$ctrl.audit.DIVISION}}">Tables
+            <a class="nav-link" href data-toggle="tab" data-target="#tab_tbl{{$ctrl.audit[1]}}">Tables
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href data-toggle="tab" data-target="#tab_idx{{$ctrl.audit.DIVISION}}">Index
+            <a class="nav-link" href data-toggle="tab" data-target="#tab_idx{{$ctrl.audit[1]}}">Index
             </a>
         </li>
     </ul>
 </div>
 <div class="tab-content">
-    <div class="tab-pane p-v-sm active" id="tab_tbs{{$ctrl.audit.DIVISION}}">
+    <div class="tab-pane p-v-sm active" id="tab_tbs{{$ctrl.audit[1]}}">
         <div style="height:230px;" class="table-responsive">
             <tablespace audit="$ctrl.audit" date="$ctrl.date"></tablespace>
         </div>
     </div>
-    <div class="tab-pane p-v-sm" id="tab_dsk{{$ctrl.audit.DIVISION}}">
+    <div class="tab-pane p-v-sm" id="tab_dsk{{$ctrl.audit[1]}}">
         <div style="height:230px;" class="table-responsive">
             <disk audit="$ctrl.audit" date="$ctrl.date"></disk>
         </div>
     </div>
-    <div class="tab-pane p-v-sm" id="tab_tbl{{$ctrl.audit.DIVISION}}">
+    <div class="tab-pane p-v-sm" id="tab_tbl{{$ctrl.audit[1]}}">
         <div style="height:230px;" class="table-responsive">
             <table-component audit="$ctrl.audit" date="$ctrl.date"></table-component>
         </div>
     </div>
-    <div class="tab-pane p-v-sm" id="tab_idx{{$ctrl.audit.DIVISION}}">
+    <div class="tab-pane p-v-sm" id="tab_idx{{$ctrl.audit[1]}}">
         <div style="height:230px;" class="table-responsive">
             <table-index audit="$ctrl.audit" date="$ctrl.date"></table-index>
         </div>

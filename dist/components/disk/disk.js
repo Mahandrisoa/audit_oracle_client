@@ -5,14 +5,16 @@ function diskCtrl($scope, $element, $attrs, diskService) {
         var date = ctrl.date;
         var tableau = date.split('/');
         var cdate = tableau[0] + "/" + tableau[1] + "/" + new Date().getFullYear();
-        diskService.getDisks(ctrl.audit.DIVISION, cdate)
+        diskService.getDisks(ctrl.audit[1], cdate)
             .then(function (response) {
                 ctrl.disks = response.data;
-                /** Adding precent to object attribute */
+                /** Adding precent to object attributes */
                 ctrl.disks.forEach(d => {
-                    var r3 = parseFloat((d.ESPACE_LIBRE * 100) / d.ESPACE_TOTAL).toFixed(3);
-                    var goUsed = precisionRound(parseFloat((d.ESPACE_TOTAL - d.ESPACE_LIBRE) / 1073741824).toFixed(3), 1);
-                    var goTotal = precisionRound(parseFloat(d.ESPACE_TOTAL / 1073741824).toFixed(3), 1);
+
+                    // [ NOM_DISQUE , ESPACE_TOTAL , ESPACE_LIBRE , serveur , DATE_AUDIT_JOURNALIER , DIVISION ]
+                    var r3 = parseFloat((d[2] * 100) / d[1]).toFixed(3);
+                    var goUsed = precisionRound(parseFloat((d[1] - d[2]) / 1073741824).toFixed(3), 1);
+                    var goTotal = precisionRound(parseFloat(d[1] / 1073741824).toFixed(3), 1);
                     if (isNaN(r3)) {
                         d['percentUsed'] = "0";
                     } else {
@@ -23,7 +25,7 @@ function diskCtrl($scope, $element, $attrs, diskService) {
                 });
                 /** Filtering with non zero attribute **/
                 ctrl.disks = ctrl.disks.filter(function (el) {
-                    return el.ESPACE_TOTAL !== 0;
+                    return el[1] !== 0;
                 });
             }, function (reason) {
                 console.warn('ERROR :' + reason)

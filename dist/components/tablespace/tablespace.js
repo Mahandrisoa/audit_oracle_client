@@ -1,14 +1,15 @@
 function tablespaceCtrl($scope, $element, $attrs, tablespaceService) {
     var ctrl = this;
     this.$onInit = function () {
-        tablespaceService.getTablespaces(ctrl.audit.DIVISION, ctrl.date, 'tablespace')
+        tablespaceService.getTablespaces(ctrl.audit[1], ctrl.date, 'tablespace')        
             .then(function (response) {
                 ctrl.tablespaces = response.data;
+                // [ TYPE_OBJET, NOM_OBJET , TAILLE_OBJET , NB_EXTENT , TAILLE_UTILISE , DATE_AUDIT_JOURNALIER , DIVISION]
                 ctrl.tablespaces.forEach(tbl => {
-                    var r3 = parseFloat((tbl.TAILLE_UTILISE * 100) / tbl.TAILLE_OBJET).toFixed(3);
+                    var r3 = parseFloat((tbl[4] * 100) / tbl[2]).toFixed(3);
                     tbl['percentUsed'] = r3;
-                });                
-            });        
+                });
+            });
     }
 }
 
@@ -22,6 +23,6 @@ angular.module('app')
         }
     }).service('tablespaceService', function ($http) {
         this.getTablespaces = function (division, date, objType) {
-            return $http.get('http://'+ SERVER.ip_adress +':'+ SERVER.port +'/api/objet_details?division=' + division + '&date=' + date + '&objet=' + objType + '');
+            return $http.get('http://' + SERVER.ip_adress + ':' + SERVER.port + '/api/objet_details?division=' + division + '&date=' + date + '&objet=' + objType + '');
         }
     });

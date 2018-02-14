@@ -1,4 +1,4 @@
-function auditCtrl($scope, $http, $element, $timeout, $attrs, auditService, socket, httpPreConfig) {
+function auditCtrl($scope, $http, $element, $timeout, $attrs, auditService, httpPreConfig) {
     var ctrl = this;
 
 
@@ -16,28 +16,28 @@ function auditCtrl($scope, $http, $element, $timeout, $attrs, auditService, sock
 
         $scope.datePicker = new Date();
 
-        socket.on('startListening', function (socketResponse) {
-            auditService
-                .getAudits(converted)
-                .then(function (response) {
-                    response.data.forEach(element => {
-                        var cache = parseFloat(element.CACHE_HIT_RATIO).toFixed(3);
-                        element.CACHE_HIT_RATIO = cache;
-                        element.AUDIT_LABEL = element.DIVISION_TYPE.substring(0, 2) + "" + element.DIVISION;
-                    });
-                    response.data.sort(compareByLabel);
-                    ctrl.httpDone = true;
-                    ctrl.audits = response.data;
-                    ctrl._temp = response.data; // temp is used for backing up data
-                    ctrl._backup = response.data;
-                    if (ctrl.audits.length > 0) {
-                        ctrl.dateAudit = ctrl.audits[0].DATE_AUDIT_JOURNALIER;
-                    }
-                    ctrl.showSpinner = false;                   
-                }, function (reason) {
-                    console.log(reason);
+        // socket.on('startListening', function (socketResponse) {
+        auditService
+            .getAudits(converted)
+            .then(function (response) {
+                response.data.forEach(element => {
+                    var cache = parseFloat(element[3]).toFixed(3);
+                    element.CACHE_HIT_RATIO = cache;
+                    element.AUDIT_LABEL = element[2].substring(0, 2) + "" + element[1];
                 });
-        });
+                response.data.sort(compareByLabel);
+                ctrl.httpDone = true;
+                ctrl.audits = response.data;
+                ctrl._temp = response.data; // temp is used for backing up data
+                ctrl._backup = response.data;
+                if (ctrl.audits.length > 0) {
+                    ctrl.dateAudit = ctrl.audits[0][4]; // ctrl.audits[0][4] est la date de l'audit 
+                }
+                ctrl.showSpinner = false;
+            }, function (reason) {
+                console.log(reason);
+            });
+        // });
     }
     function compareByLabel(a, b) {
         if (a.AUDIT_LABEL < b.AUDIT_LABEL)
@@ -54,9 +54,9 @@ function auditCtrl($scope, $http, $element, $timeout, $attrs, auditService, sock
             .getAudits(converted)
             .then(function (response) {
                 response.data.forEach(element => {
-                    var cache = parseFloat(element.CACHE_HIT_RATIO).toFixed(3);
+                    var cache = parseFloat(element[3]).toFixed(3);
                     element.CACHE_HIT_RATIO = cache;
-                    element.AUDIT_LABEL = element.DIVISION_TYPE.substring(0, 2) + "" + element.DIVISION;
+                    element.AUDIT_LABEL = element[2].substring(0, 2) + "" + element[1];
                     ctrl.showSpinner = false;
                 });
                 response.data.sort(compareByLabel);
@@ -64,7 +64,7 @@ function auditCtrl($scope, $http, $element, $timeout, $attrs, auditService, sock
                 ctrl._temp = response.data; // temp is used for backing up data
                 ctrl._backup = response.data;
                 if (ctrl.audits.length > 0) {
-                    ctrl.dateAudit = ctrl.audits[0].DATE_AUDIT_JOURNALIER;
+                    ctrl.dateAudit = ctrl.audits[0][4];
                 } else {
                     ctrl.dateAudit = converted;
                 }
@@ -79,7 +79,7 @@ function auditCtrl($scope, $http, $element, $timeout, $attrs, auditService, sock
             ctrl.audits = ctrl._backup;
         } else {
             ctrl.audits = ctrl._temp.filter(function (element) {
-                return element.DIVISION_TYPE === $scope.typeModel;
+                return element[2] === $scope.typeModel;
             });
         }
     }

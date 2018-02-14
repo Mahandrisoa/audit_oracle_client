@@ -2,7 +2,7 @@ function tableIndexCtrl($scope, $element, $attrs, indexService) {
     var ctrl = this;
     this.$onInit = function () {
         indexService
-            .getIndexes(ctrl.audit.DIVISION, ctrl.date, 'index')
+            .getIndexes(ctrl.audit[1], ctrl.date, 'index')
             .then(function (response) {
                 ctrl.indexes = response.data;
                 ctrl._backup = response.data;
@@ -15,7 +15,7 @@ function tableIndexCtrl($scope, $element, $attrs, indexService) {
     function total(array) {
         var sum = 0;
         ctrl.tables.forEach(element => {
-            sum += element.TAILLE_OBJET;
+            sum += element[2];
         });
         return sum;
     }
@@ -25,7 +25,7 @@ function tableIndexCtrl($scope, $element, $attrs, indexService) {
         switch (e.indexModel) {
             case 'biggest':
                 ctrl.indexes = ctrl._temp.filter(function (element) {
-                    return element.TAILLE_OBJET > 102400;
+                    return element[2] > 102400;
                 });
                 break;
             case 'mostDeffed': // les plus defragmentés                
