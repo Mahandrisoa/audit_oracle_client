@@ -1,4 +1,4 @@
-function auditCtrl($scope, $http, $element, $timeout, $attrs, auditService, httpPreConfig) {
+function auditCtrl($scope, $http, $element, $timeout, $interval, $attrs, auditService, httpPreConfig) {
     var ctrl = this;
 
 
@@ -9,7 +9,7 @@ function auditCtrl($scope, $http, $element, $timeout, $attrs, auditService, http
         $scope.$on('httpCallStopped', function (e) {
             $('#datePicker').prop('disabled', false);
         });
-
+        ctrl.timeOut = 10000;
         var converted = this.convertDate(new Date().toDateString());
         ctrl.convertedDate = converted;
         ctrl.showSpinner = true;
@@ -17,34 +17,103 @@ function auditCtrl($scope, $http, $element, $timeout, $attrs, auditService, http
         $scope.datePicker = new Date();
 
         // socket.on('startListening', function (socketResponse) {
-        auditService
-            .getAudits(converted)
-            .then(function (response) {
-                response.data.forEach(element => {
-                    var cache = parseFloat(element[3]).toFixed(3);
-                    element.CACHE_HIT_RATIO = cache;
-                    element.AUDIT_LABEL = element[2].substring(0, 2) + "" + element[1];
+        // auditService
+        //     .getAudits(converted)
+        //     .then(function (response) {
+        //         response.data.forEach(element => {
+        //             var cache = parseFloat(element[3]).toFixed(3);
+        //             element.CACHE_HIT_RATIO = cache;
+        //             element.AUDIT_LABEL = element[2].substring(0, 2) + "" + element[1];
+        //         });
+        //         response.data.sort(compareByLabel);
+        //         ctrl.httpDone = true;
+        //         ctrl.audits = response.data;
+        //         ctrl._temp = response.data; // temp is used for backing up data
+        //         ctrl._backup = response.data;
+        //         if (ctrl.audits.length > 0) {
+        //             ctrl.dateAudit = ctrl.audits[0][4]; // ctrl.audits[0][4] est la date de l'audit 
+        //         }
+        //         ctrl.showSpinner = false;
+        //     }, function (reason) {
+        //         console.log(reason);
+        //     });
+
+        // });     
+        // this.repeat(86400000);*
+
+        /**
+         * Interval call
+         */
+
+        ctrl.interval = setInterval(function () {
+            auditService
+                .getAudits(converted)
+                .then(function (response) {
+                    response.data.forEach(element => {
+                        var cache = parseFloat(element[3]).toFixed(3);
+                        element.CACHE_HIT_RATIO = cache;
+                        element.AUDIT_LABEL = element[2].substring(0, 2) + "" + element[1];
+                    });
+                    response.data.sort(compareByLabel);
+                    ctrl.httpDone = true;
+                    ctrl.audits = response.data;
+                    ctrl._temp = response.data; // temp is used for backing up data
+                    ctrl._backup = response.data;
+                    if (ctrl.audits.length > 0) {
+                        ctrl.dateAudit = ctrl.audits[0][4]; // ctrl.audits[0][4] est la date de l'audit 
+                    }
+                    ctrl.showSpinner = false;
+                }, function (reason) {
+                    console.log(reason);
                 });
-                response.data.sort(compareByLabel);
-                ctrl.httpDone = true;
-                ctrl.audits = response.data;
-                ctrl._temp = response.data; // temp is used for backing up data
-                ctrl._backup = response.data;
-                if (ctrl.audits.length > 0) {
-                    ctrl.dateAudit = ctrl.audits[0][4]; // ctrl.audits[0][4] est la date de l'audit 
-                }
-                ctrl.showSpinner = false;
-            }, function (reason) {
-                console.log(reason);
-            });
-        // });
+        }, ctrl.timeOut);
     }
+
     function compareByLabel(a, b) {
         if (a.AUDIT_LABEL < b.AUDIT_LABEL)
             return -1;
         if (a.AUDIT_LABEL > b.AUDIT_LABEL)
             return 1;
         return 0;
+    }
+    /**
+     * alternavite for this.convertDate() {}
+     * used in handleInterval
+     * @param {} inputFormat 
+     */
+    function cov(inputFormat) {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
+        var d = new Date(inputFormat);
+        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+    }
+
+    this.handleInterval = function () {
+        var time = parseInt($scope.refreshModel);
+        clearInterval(ctrl.interval);
+        ctrl.interval = setInterval(function () {
+            var converted = cov($scope.datePicker);
+            ctrl.showSpinner = true
+            auditService
+                .getAudits(converted)
+                .then(function (response) {
+                    response.data.forEach(element => {
+                        var cache = parseFloat(element[3]).toFixed(3);
+                        element.CACHE_HIT_RATIO = cache;
+                        element.AUDIT_LABEL = element[2].substring(0, 2) + "" + element[1];
+                    });
+                    response.data.sort(compareByLabel);
+                    ctrl.httpDone = true;
+                    ctrl.audits = response.data;
+                    ctrl._temp = response.data; // temp is used for backing up data
+                    ctrl._backup = response.data;
+                    if (ctrl.audits.length > 0) {
+                        ctrl.dateAudit = ctrl.audits[0][4]; // ctrl.audits[0][4] est la date de l'audit 
+                    }
+                    ctrl.showSpinner = false;
+                }, function (reason) {
+                    console.log(reason);
+                });
+        }, time);
     }
 
     this.handlePickerChange = function () {
@@ -74,6 +143,7 @@ function auditCtrl($scope, $http, $element, $timeout, $attrs, auditService, http
                 console.log(reason);
             });
     }
+
     this.handleTypeChange = function (e) {
         if ($scope.typeModel === 'Tout') {
             ctrl.audits = ctrl._backup;

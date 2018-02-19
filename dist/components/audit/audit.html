@@ -3,21 +3,37 @@
         <div class="col-md-6">
             <h2 class="m-b-0 _300 container">Audit du {{ $ctrl.dateAudit }}</h2>
         </div>
-        <div class="col-md-6 pull-right">
+        <div class="col-md-3">
             <div class="form-group row">
-                <label class="col-sm-1 form-control-label _300" style="font-size:2em;">Date:</label>
-                <div class="col-sm-4">
+                <label class="col-md-2 form-control-label _300" style="font-size:2em;">Date:</label>
+                <div class="col-sm-4 col-md-10">
                     <input type="date" id="datePicker" class="form-control" ng-model="datePicker" ng-change="$ctrl.handlePickerChange(e);">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-1 form-control-label _300" style="font-size:2em;">Type:</label>
-                <div class="col-sm-4">
+                <label class="col-sm-1 col-md-2 form-control-label _300" style="font-size:2em;">Type:</label>
+                <div class="col-sm-4 col-md-10">
                     <select id="" class="form-control" ng-init="typeModel = 'Tout'" ng-model="typeModel" ng-change="$ctrl.handleTypeChange(this)">
                         <option value="Tout">Agences, Usines et Siège</option>
                         <option value="Siege">Siège</option>
                         <option value="Agence">Agences</option>
                         <option value="Usine">Usines</option>
+                    </select>
+                </div>
+            </div>            
+        </div>
+        <div class="col-md-3">
+            <div class="form-group row">
+                <label for="" class="col-sm-1 col-md-6 form-control-label _300" style="font-size:2em;">Temps de rafraîchissement</label>
+                <div class="col-sm-4 col-md-6">
+                    <select class="form-control" ng-init="refreshModel = '10000'" ng-model="refreshModel" ng-change="$ctrl.handleInterval(this)">                        
+                        <option value="10000">10 secondes</option>                        
+                        <option value="60000">1 minute</option>
+                        <option value="900000">15 minutes</option>
+                        <option value="1800000">30 minutes</option>
+                        <option value="3600000">1 heure</option>
+                        <option value="43200000">12 heures</option>
+                        <option value="86400000">24 Heure</option>
                     </select>
                 </div>
             </div>
