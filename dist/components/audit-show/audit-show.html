@@ -15,7 +15,7 @@
         <div class="col-sm-4 col-md-3">
             <div class="box bordered" style="height: 150;">
                 <div class="box-header red-800">
-                    <h3 class="m-a-0 m-b-sm text-md text-center">{{ $ctrl.selectedObj.DIVISION_TYPE }} {{ $ctrl.selectedObj.DIVISION_NAME }}</h3>
+                    <h3 class="m-a-0 m-b-sm text-md text-center">{{ $ctrl.selectedObj[2] }} {{ $ctrl.selectedObj[0] }}</h3>
                 </div>
                 <div class="box-body">
                     <div class="list inset">
@@ -27,7 +27,7 @@
                             </div>
                             <div class="list-body pull-right">
                                 <h5>
-                                    {{ $ctrl.selectedObj.DIVISION }}
+                                    {{ $ctrl.selectedObj[1] }}
                                 </h5>
                             </div>
                         </div>

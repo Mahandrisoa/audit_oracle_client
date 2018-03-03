@@ -20,14 +20,15 @@
                         <option value="Usine">Usines</option>
                     </select>
                 </div>
-            </div>            
+            </div>
         </div>
         <div class="col-md-3">
             <div class="form-group row">
                 <label for="" class="col-sm-1 col-md-6 form-control-label _300" style="font-size:2em;">Temps de rafraîchissement</label>
                 <div class="col-sm-4 col-md-6">
-                    <select class="form-control" ng-init="refreshModel = '10000'" ng-model="refreshModel" ng-change="$ctrl.handleInterval(this)">                        
-                        <option value="10000">10 secondes</option>                        
+                    <select class="form-control" ng-init="refreshModel = '0'" ng-model="refreshModel" ng-change="$ctrl.handleInterval(this)">
+                        <option value="0">Jamais</option>
+                        <option value="10000">10 secondes</option>
                         <option value="60000">1 minute</option>
                         <option value="900000">15 minutes</option>
                         <option value="1800000">30 minutes</option>
@@ -35,9 +36,12 @@
                         <option value="43200000">12 heures</option>
                         <option value="86400000">24 Heure</option>
                     </select>
-                </div>
-            </div>
+                </div>                
+            </div>            
         </div>
+        <a href="./history" class="md-btn md-fab m-b-sm red-700" style="position:absolute;top:80px;right:10px;">
+            <span class="fa fa-history"></span>
+        </a>
     </div>
     <spinner ng-show="$ctrl.showSpinner"></spinner>
     <!-- <site-information ng-show="!$ctrl.showSpinner" count="$ctrl.auditCount"></site-information> -->

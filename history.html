@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Supervision Audit et disques | Historique</title>
+    <meta name="description" content="Admin, Dashboard, Bootstrap, Bootstrap 4, Angular, AngularJS" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+    <link rel="apple-touch-icon" href="../assets/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Flatkit">
+    <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" sizes="196x196" href="../assets/images/logo.png">
+
+    <!-- style -->
+    <link rel="stylesheet" href="bower_components/animate.css/animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets/fonts/b4.css" type="text/css" />
+    <link rel="stylesheet" href="./bower_components/material-design-icons/material-design-icons.css" type="text/css">
+    <link rel="stylesheet" href="./bower_components/styles/refonte.css" type="text/css" />
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/dataTable.css" type="text/css" />
+    <link rel="stylesheet" href="./bower_components/toast/dist/toastr.min.css">
+    <style>
+        body {
+            background-image: url('./back.JPG');
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row p-a white lt box-shadow" style="height:100px;">
+        <div class="col-sm-6">
+            <h2 class="m-b-0 _300 container">
+                <a href="./">
+                    <span class="fa  fa-history red-800"></span>
+                </a>
+                Historique de tout les audits
+            </h2>
+        </div>
+        <div class="col-sm-6">
+        </div>
+        <a href="./" class="md-btn md-fab m-b-sm red-700" style="position:absolute;top:80px;right:10px;">
+            <span class="fa fa-home"></span>
+        </a>
+    </div>
+    <div class="padding row">
+        <div class="col-md-3">
+            <div class="box bordered" style="height: 150;">
+                <div class="box-header red-800">
+                    <h3 class="m-a-0 m-b-sm text-md text-center ng-binding">LISTE DES HISTORIQUES</h3>
+                </div>
+                <div class="box-body">
+                    <div class="list inset">
+                        <div class="list-item">
+                            <div class="list-left">
+                                Effacer les données d'audits
+                            </div>
+                            <div class="list-body">
+                                <h5 class="ng-binding">
+                                    <a class="btn btn-default btn-xs">
+                                        <span class="fa fa-check-square-o"></span>
+                                    </a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-9">
+            <div class="box bordered">
+
+                <div class="box-body">
+                    <div class="box-body p-v-md">
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label class="sr-only" for="inputType">Type</label>
+                                <select class="form-control col-sm-10" id="inputType">
+                                    <option value="">Tous</option>
+                                    <option value="Siege">Siège</option>
+                                    <option value="Agence">Agences</option>
+                                    <option value="Usine">Usines</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="exampleInputDate">Date</label>
+                                <input type="date" class="form-control" id="exampleInputDate" placeholder="Date">
+                            </div>
+                            <div class="form-group">
+                                <input type="button" value="x" id="resetBtn" class="btn btn-default btn-rounded btn-xs">
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div class="row p-x-xs">
+
+                        <div class="col-sm-2 form-group row">
+                            <label class="col-sm-2">
+                                Type
+                            </label>
+                            <select class="form-control col-sm-10">
+                                <option value="0">Tous</option>
+                                <option value="0">Ag01</option>
+                                <option value="1">Delete selected</option>
+                                <option value="2">Bulk edit</option>
+                                <option value="3">Export</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 form-group row">
+                            <label for="col-sm2 form-control-label">Date</label>
+                            <input type="date" class="col-sm-10 form-control" name="" id="">
+                        </div>
+                        
+                    </div> -->
+                    <table class="table table-striped footable">
+                        <thead>
+                            <tr>
+                                <th style="width:20px;">
+                                    <input type="checkbox" id="head-checked" class="checkbox">
+                                </th>
+                                <th>Designation</th>
+                                <th>Site</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th class="pull-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="t-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- .modal -->
+    <div id="m-a-a" class="modal fade animate" data-backdrop="true">
+        <div class="modal-dialog" id="animate">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Suppression</h5>
+                </div>
+                <div class="modal-body text-center p-lg">
+                    <p>Etes-vous sur de vouloir supprimer cet audit?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">Non</button>
+                    <button type="button" id="confirmBtn" class="btn danger p-x-md">Oui</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+    <!-- / .modal -->
+    <script src="./assets/js/angular/angular1.6.9.js"></script>
+    <script src="./assets/js/angular-route/angular_1_router.js"></script>
+    <script src="./assets/js/jquery/jquery.js"></script>
+    <script src="./assets/js/jquery/jquery.dataTable.min.js"></script>
+    <script src="./assets/js/tether/tether.min.js"></script>
+    <script src="./assets/js/bootstrap/bootstrap.js"></script>
+
+    <script src="./assets/js/polyfills/es6-shim.min.js"></script>
+    <script src="./assets/js/polyfills/shims_for_IE.js"></script>
+    <script src="./assets/js/polyfills/system-polyfills.min.js"></script>
+    <script src="./assets/js/config.lazyload.js"></script>
+    <script src="./assets/js/ui-jp/ui-jp.js"></script>
+    <script src="./assets/js/google-material-color/palette.js"></script>
+
+    <!-- call to all components -->
+    <script src="./dist/config.js"></script>
+    <script src="./bower_components/toast/dist/toastr.min.js"></script>
+    <script>
+        $(function () {
+            var _data = [];
+            $.ajax('http://' + SERVER.ip_adress + ':' + SERVER.port + '/api/allAudits')
+                .success(function (data) {
+                    _data = data;
+                    var htmlElement = "";
+                    $.each(data, function (index, value) {
+                        var date = cov(value[1]);
+                        var design = " value[]";
+                        switch (value[4]) {
+                            case "Siege":
+                                design = "si"
+                                break;
+                            case "Agence":
+                                design = "Ag"
+                                break;
+                            case "Usine":
+                                design = "Us"
+                                break;
+                        }
+                        design += value[2];
+                        htmlElement += "<tr><th style=\"width:20px;\"><input type=\"checkbox\" class=\"has-value\"></th><td>" + design + "</td><td>" + value[3] + "</td><td>" + value[4] + "</td><td>" + date + "</td><td><button type=\"button\" class=\"btn btn-danger btn-xs pull-right\" data-toggle=\"modal\" data-target=\"#m-a-a\" data-date=\"" + date + "\" data-division=\"" + value[2] + "\" data-type=\"" + value[4] + "\"><span class=\"fa fa-remove xs\"></span></button></td></tr>";
+                    });
+                    $('#t-body').append(htmlElement); $('.table').dataTable();
+                });
+
+            function cov(inputFormat) {
+                function pad(s) { return (s < 10) ? '0' + s : s; }
+                var d = new Date(inputFormat);
+                return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+            }
+            $("#head-checked").on('change', function () {
+                var val = $(this).is(':checked');
+                $('input[type="checkbox"]').prop('checked', val);
+            });
+
+            $('#exampleInputDate').on('change', function () {
+                console.log($(this).val());
+                var val = $(this).val();
+                val = val.split('-');
+                val = val[2] + "/" + val[1] + "/" + val[0];
+                $('.table').DataTable().columns(4).search(val).draw();
+            });
+
+            $('#inputType').on('change', function () {
+                var val = $(this).val();
+                $('.table').DataTable().columns(3).search(val).draw();
+            });
+
+            $('#resetBtn').on('click', function () {
+                $('.table').DataTable().columns([4, 3]).search("").draw();
+            });
+
+            var selected = {};
+            var target = null;
+
+            $('#m-a-a').on('show.bs.modal', function (e) {
+                selected.date = $(e.relatedTarget).data('date').replace(/\//g, ' ');
+                selected.division = $(e.relatedTarget).data('division');
+                selected.type = $(e.relatedTarget).data('type');
+                target = $(e.relatedTarget);
+            });
+
+            $('#m-a-a').on('hide.bs.modal', function (e) {
+                selected = {};
+                target = null;
+            });
+
+            $('#confirmBtn').on('click', function (e) {
+                $(this).attr('disabled1', true);
+                $.ajax({
+                    method: "DELETE",
+                    url: "http://" + SERVER.ip_adress + ":" + SERVER.port + "/api/audits?date=" + selected.date + "&type=" + selected.type + "&division=" + selected.division
+                })
+                    .success(function (data, textStatus, jqXHR) {
+                        $(target.parents()[1]).fadeOut();
+                        toastr.success("Audit supprimé avec success");
+                    })
+                    .error(function (message) {
+                        toastr.success("Une erreur s'est produite!");
+                    })
+                    .done(function () {
+                        $(this).attr('disabled', false);
+                        $('#m-a-a').modal('hide');
+                    });
+            });
+        });
+    </script>
+</body>
+
+</html>

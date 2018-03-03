@@ -9,7 +9,7 @@ function diskCtrl($scope, $element, $attrs, diskService) {
             .then(function (response) {
                 ctrl.disks = response.data;
                 /** Adding precent to object attributes */
-                ctrl.disks.forEach(d => {
+                ctrl.disks.forEach(function(d) {
 
                     // [ NOM_DISQUE , ESPACE_TOTAL , ESPACE_LIBRE , serveur , DATE_AUDIT_JOURNALIER , DIVISION ]
                     var r3 = parseFloat((d[2] * 100) / d[1]).toFixed(3);

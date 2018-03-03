@@ -7,6 +7,7 @@ function auditShowCtrl($scope, $http, $attrs) {
     ctrl.$onInit = function() {
         ctrl.selectedObj = ctrl.appCtrl.selectedObj; 
         ctrl.selectedDate = ctrl.appCtrl.selectedDate;
+        console.log(ctrl.selectedObj)
     }
 }
 

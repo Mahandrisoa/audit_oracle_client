@@ -5,7 +5,7 @@ function tablespaceCtrl($scope, $element, $attrs, tablespaceService) {
             .then(function (response) {
                 ctrl.tablespaces = response.data;
                 // [ TYPE_OBJET, NOM_OBJET , TAILLE_OBJET , NB_EXTENT , TAILLE_UTILISE , DATE_AUDIT_JOURNALIER , DIVISION]
-                ctrl.tablespaces.forEach(tbl => {
+                ctrl.tablespaces.forEach(function(tbl){
                     var r3 = parseFloat((tbl[4] * 100) / tbl[2]).toFixed(3);
                     tbl['percentUsed'] = r3;
                 });

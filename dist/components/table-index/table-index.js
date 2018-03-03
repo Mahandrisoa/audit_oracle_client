@@ -14,7 +14,7 @@ function tableIndexCtrl($scope, $element, $attrs, indexService) {
 
     function total(array) {
         var sum = 0;
-        ctrl.tables.forEach(element => {
+        ctrl.tables.forEach(function(element) {
             sum += element[2];
         });
         return sum;
