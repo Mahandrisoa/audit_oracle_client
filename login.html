@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
-  <title>Flatkit - HTML Version | Bootstrap 4 Web App Kit with AngularJS</title>
+  <title>Supervision Audit Oracle et disques | Authentification</title>
   <meta name="description" content="Admin, Dashboard, Bootstrap, Bootstrap 4, Angular, AngularJS" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +16,7 @@
   <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" sizes="196x196" href="../assets/images/logo.png">
-  
+
   <!-- style -->
   <link rel="stylesheet" href="bower_components/animate.css/animate.min.css" type="text/css" />
   <link rel="stylesheet" href="bower_components/glyphicons/glyphicons.css" type="text/css" />
@@ -28,63 +29,65 @@
   <!-- endbuild -->
   <link rel="stylesheet" href="bower_components/styles/font.css" type="text/css" />
   <style>
-  body {
-    background-image: url('./back.JPG');
-    
-  }
+    body {
+      background-image: url('./back.JPG');
+
+    }
   </style>
 </head>
+
 <body>
   <div class="app" id="app">
 
-<!-- ############ LAYOUT START-->
-  <div class="center-block w-xxl w-auto-xs p-y-md">
-    <div class="navbar">
-      <div class="pull-center">
-        <div ui-include="'../views/blocks/navbar.brand.html'"></div>
-      </div>
-    </div>
-    <div class="p-a-md box-color r box-shadow-z1 text-color">
-      <div class="">
-        <h4>ORACLE & Disques Supervision</h4>
-      </div>
-      <form name="form" method="post">
-          <div class="alert alert-danger hide">
-                Vous n'êtes pas autorisé à se connecter
-          </div>
-        <div class="md-form-group">
-          <input type="text" class="md-input" style="font-size:15px;" required>
-          <label style="font-size: 15px; font-weight: 400;font-family:"Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;">Nom d'utilisateur</label>
+    <!-- ############ LAYOUT START-->
+    <div class="center-block w-xxl w-auto-xs p-y-md">
+      <div class="navbar">
+        <div class="pull-center">
+          <div ui-include="'../views/blocks/navbar.brand.html'"></div>
         </div>
-        <div class="md-form-group float-label">
-          <input type="password" class="md-input" required>
-          <label style="font-size: 15px; font-weight: 400;">Mot de passe</label>
-        </div>              
-        <button type="submit" class="btn red btn-block p-x-md">Se connecter</button>
-      </form>
+      </div>
+      <div class="p-a-md box-color r box-shadow-z1 text-color">
+        <div class="">
+          <h4>ORACLE & Disques Supervision</h4>
+        </div>
+        <form name="form" method="post">
+          <div class="alert alert-danger hide">
+            Vous n'êtes pas autorisé à se connecter
+          </div>
+          <div class="md-form-group">
+            <input type="text" class="md-input" style="font-size:15px;" required>
+            <label style="font-size: 15px; font-weight: 400;font-family:" Roboto ", "Helvetica Neue ", Helvetica, Arial, sans-serif;">Nom d'utilisateur</label>
+          </div>
+          <div class="md-form-group float-label">
+            <input type="password" class="md-input" required>
+            <label style="font-size: 15px; font-weight: 400;">Mot de passe</label>
+          </div>
+          <button type="submit" class="btn red btn-block p-x-md">Se connecter</button>
+        </form>
+      </div>
     </div>
-  </div>
 
-<!-- ############ LAYOUT END-->
+    <!-- ############ LAYOUT END-->
 
   </div>
-<!-- build:js scripts/app.html.js -->
-<!-- jQuery -->
+  <!-- build:js scripts/app.html.js -->
+  <!-- jQuery -->
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script>
-$(function(){
-    $('[name="form"]').submit(function(e){
+    $(function () {
+      $('[name="form"]').submit(function (e) {
         e.preventDefault();
         var passwd = $('[type="password"]').val(),
-            login  = $('[type="text"]').val();
-            console.log(passwd +" "+ login);
-            if(passwd === "admin" && login === "admin") {
-                $(location).attr('href', './');
-            } else {
-                $('.auth-result').removeClass('hide').addClass('show');
-            }        
+          login = $('[type="text"]').val();
+        console.log(passwd + " " + login);
+        if (passwd === "admin" && login === "admin") {
+          $(location).attr('href', './');
+        } else {
+          $('.auth-result').removeClass('hide').addClass('show');
+        }
+      });
     });
-});
   </script>
 </body>
+
 </html>
