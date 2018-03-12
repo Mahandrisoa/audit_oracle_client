@@ -45,8 +45,11 @@
         </div>
         <div class="col-sm-6">
         </div>
-        <a href="./" class="md-btn md-fab m-b-sm red-700" style="position:absolute;top:80px;right:10px;">
+        <a href="./" class="md-btn md-fab m-b-sm red-700" style="position:absolute;top:80px;right:80px;">
             <span class="fa fa-home"></span>
+        </a>
+        <a id="out" class="md-btn md-fab m-b-sm grey-700" style="position:absolute;top:80px;right:10px;">
+            <span class="fa fa-sign-out"></span>
         </a>
     </div>
     <div class="padding row">
@@ -63,7 +66,7 @@
                             </div>
                             <div class="list-body">
                                 <h5 class="ng-binding">
-                                    <a class="btn btn-default btn-xs">
+                                    <a class="btn btn-default btn-xs" data-toggle="modal" data-target="#m-a-all">
                                         <span class="fa fa-check-square-o"></span>
                                     </a>
                                 </h5>
@@ -101,32 +104,9 @@
                             </div>
                         </form>
                     </div>
-                    <!-- <div class="row p-x-xs">
-
-                        <div class="col-sm-2 form-group row">
-                            <label class="col-sm-2">
-                                Type
-                            </label>
-                            <select class="form-control col-sm-10">
-                                <option value="0">Tous</option>
-                                <option value="0">Ag01</option>
-                                <option value="1">Delete selected</option>
-                                <option value="2">Bulk edit</option>
-                                <option value="3">Export</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-3 form-group row">
-                            <label for="col-sm2 form-control-label">Date</label>
-                            <input type="date" class="col-sm-10 form-control" name="" id="">
-                        </div>
-                        
-                    </div> -->
                     <table class="table table-striped footable">
                         <thead>
-                            <tr>
-                                <th style="width:20px;">
-                                    <input type="checkbox" id="head-checked" class="checkbox">
-                                </th>
+                            <tr>                                
                                 <th>Designation</th>
                                 <th>Site</th>
                                 <th>Type</th>
@@ -150,7 +130,27 @@
                     <h5 class="modal-title">Suppression</h5>
                 </div>
                 <div class="modal-body text-center p-lg">
-                    <p>Etes-vous sur de vouloir supprimer cet audit?</p>
+                    <p>Etes-vous sûr de vouloir supprimer cet audit?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">Non</button>
+                    <button type="button" id="confirmBtn" class="btn danger p-x-md">Oui</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+    <!-- / .modal -->
+
+    <!-- .modal -->
+    <div id="m-a-all" class="modal fade animate" data-backdrop="true">
+        <div class="modal-dialog" id="animate">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Suppression de tout les audits</h5>
+                </div>
+                <div class="modal-body text-center p-lg">
+                    <p>Etes-vous sûr de vouloir supprimer tout supprimer?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">Non</button>
@@ -181,6 +181,8 @@
     <script>
         $(function () {
             var _data = [];
+            
+
             $.ajax('http://' + SERVER.ip_adress + ':' + SERVER.port + '/api/allAudits')
                 .success(function (data) {
                     _data = data;
@@ -200,9 +202,9 @@
                                 break;
                         }
                         design += value[2];
-                        htmlElement += "<tr><th style=\"width:20px;\"><input type=\"checkbox\" class=\"has-value\"></th><td>" + design + "</td><td>" + value[3] + "</td><td>" + value[4] + "</td><td>" + date + "</td><td><button type=\"button\" class=\"btn btn-danger btn-xs pull-right\" data-toggle=\"modal\" data-target=\"#m-a-a\" data-date=\"" + date + "\" data-division=\"" + value[2] + "\" data-type=\"" + value[4] + "\"><span class=\"fa fa-remove xs\"></span></button></td></tr>";
+                        htmlElement += "<tr><td>" + design + "</td><td>" + value[3] + "</td><td>" + value[4] + "</td><td>" + date + "</td><td><button type=\"button\" class=\"btn btn-danger btn-xs pull-right\" data-toggle=\"modal\" data-target=\"#m-a-a\" data-date=\"" + date + "\" data-division=\"" + value[2] + "\" data-type=\"" + value[4] + "\"><span class=\"fa fa-remove xs\"></span></button></td></tr>";
                     });
-                    $('#t-body').append(htmlElement); $('.table').dataTable();
+                    $('#t-body').append(htmlElement); $('.table').dataTable();                    
                 });
 
             function cov(inputFormat) {
@@ -220,16 +222,16 @@
                 var val = $(this).val();
                 val = val.split('-');
                 val = val[2] + "/" + val[1] + "/" + val[0];
-                $('.table').DataTable().columns(4).search(val).draw();
+                $('.table').DataTable().columns(3).search(val).draw();
             });
 
             $('#inputType').on('change', function () {
                 var val = $(this).val();
-                $('.table').DataTable().columns(3).search(val).draw();
+                $('.table').DataTable().columns(2).search(val).draw();
             });
 
             $('#resetBtn').on('click', function () {
-                $('.table').DataTable().columns([4, 3]).search("").draw();
+                $('.table').DataTable().columns([3, 2]).search("").draw();
             });
 
             var selected = {};
@@ -265,8 +267,14 @@
                         $('#m-a-a').modal('hide');
                     });
             });
+
+            $('#out').on('click',function(){
+                setTimeout(function(){
+                    $(location).attr('href', './login');
+                },2000);
+            });
         });
     </script>
 </body>
 
-</html>
+</html> 

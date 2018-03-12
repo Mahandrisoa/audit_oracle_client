@@ -38,9 +38,12 @@
                     </select>
                 </div>
             </div>
-        </div>
-        <a href="./history" class="md-btn md-fab m-b-sm red-700" style="position:absolute;top:80px;right:10px;">
+        </div>        
+        <a href="./history" class="md-btn md-fab m-b-sm red-700" style="position:absolute;top:80px;right:80px;">
             <span class="fa fa-history"></span>
+        </a>
+        <a href="./login" class="md-btn md-fab m-b-sm grey-700" style="position:absolute;top:80px;right:10px;">
+            <span class="fa fa-sign-out"></span>
         </a>
     </div>
     <spinner ng-show="$ctrl.showSpinner"></spinner>
@@ -50,8 +53,23 @@
             <p class="h5 m-y-lg text-u-c font-bold">Aucun audit n'a été fait pour cette date.</p>
         </div>
 
-        <div ng-if="$ctrl.audits.length != 0" class="row" style="margin-left: 25%;">
-            <div class="box col-md-4 padding">
+        <div ng-if="$ctrl.audits.length != 0" class="row" style="margin-left: 20%;">
+            <div class="box col-md-3 padding">
+                <div class="pull-left m-r">
+                    <span class="w-48 rounded red-800">
+                        <i class="material-icons">home</i>
+                    </span>
+                </div>
+                <div class="clear">
+                    <h4 class="m-a-0 text-lg _300">
+                        <b >
+                            SIEGE
+                        </b>
+                    </h4>
+                    <small class="text-muted"> </small>
+                </div>
+            </div>
+            <div class="box col-md-3 padding">
                 <div class="pull-left m-r">
                     <span class="w-48 rounded red-800">
                         <i class="material-icons">&#xE0AF</i>
@@ -60,13 +78,13 @@
                 <div class="clear">
                     <h4 class="m-a-0 text-lg _300">
                         <b id="labelAgence">
-                           {{ $ctrl.agences}} AGENCES
+                            {{ $ctrl.agences}} AGENCES
                         </b>
                     </h4>
                     <small class="text-muted"> </small>
                 </div>
             </div>
-            <div class="box col-md-4 padding">
+            <div class="box col-md-3 padding">
                 <div class="pull-left m-r">
                     <span class="w-48 rounded  red-800">
                         <i class="material-icons">&#xE8D1</i>
@@ -75,7 +93,7 @@
                 <div class="clear">
                     <h4 class="m-a-0 text-lg _300">
                         <b id="labelUsine">
-                                {{ $ctrl.usines}} USINES
+                            {{ $ctrl.usines}} USINES
                         </b>
                     </h4>
                     <small class="text-muted"> </small>
